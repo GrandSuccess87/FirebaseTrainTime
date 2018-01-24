@@ -1,87 +1,105 @@
 <!doctype html>
 <html lang="en">
- <head>
-   <!-- Required meta tags -->
-   <meta charset="utf-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-   <link rel="stylesheet" type="text/css" href="assets/css/style.css"
-    <!-- Bootstrap CSS -->
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-   <title>Train Schedule</title>
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy"
+    crossorigin="anonymous">
 
-   <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
-   <script src = "assets/javascript/app.js"></script>
- </head>
+  <title>Train Schedule</title>
 
- <body>
-    
-<div class="container">
+  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+ 
+</head>
 
-       <div class="jumbotron">
-     <h1 class="display-4">Is It Time to Catch Your Train?</h1>
-     <p class="lead">A Comprehensive Database of train arrivals and departures.</p>
+<body>
+
+  <div class="container">
+
+    <div class="jumbotron">
+      <h1 class="display-4">Is It Time to Catch Your Train?</h1>
+      <p class="lead">A Comprehensive Database of train arrivals and departures.</p>
     </div>
-    
+
     <div class="card" style="width: 900px;">
-     <div class="card-header">
-       Current Train Schedule
-     </div>
-     <table>
-    <tr>
-      <th id="name-display"><span style="margin-left: 2em;">Train Name</th></span>
-      <th id="destination-display"><span style="margin-left: 2em;">Destination</th></span>
-      <th id="frequency-display"><span style="margin-left: 2em;">Frequency (min)</th></span>
-      <th id="next-display"><span style="margin-left: 2em;">Next Arrival</th> </span>
-      <th id="away-display"><span style="margin-left: 2em;">Minutes Away</th></span>
-     
-    </tr>
-    </table>
-    
+      <div class="card-header">
+        Current Train Schedule
+      </div>
+      <table>
+        <tr>
+          <th id="name-display">
+            <span style="margin-left: 2em;">Train Name</th>
+          </span>
+          <th id="destination-display">
+            <span style="margin-left: 2em;">Destination</th>
+          </span>
+          <th id="frequency-display">
+            <span style="margin-left: 2em;">Frequency (min)</th>
+          </span>
+          <th id="next-display">
+            <span style="margin-left: 2em;">Next Arrival</th>
+          </span>
+          <th id="away-display">
+            <span style="margin-left: 2em;">Minutes Away</th>
+          </span>
+        </tr>
+        <tbody>
+        </tbody>
+      </table>
+
     </div>
 
-    <br><br>
-    
+    <br>
+    <br>
+
     <div class="card2" style="width: 900px;">
-     <div class="card-header">
-       Add Train
-     </div>
-    <div class="form-group row">
-    <label for="example-text-input" class="col-2 col-form-label" id="train-name-input">Train Name</label>
-    <div class="col-10">
-      <input class="form-control" type="text" value="train name" id="example-text-input">
+      <div class="card-header">
+        Add Train
+      </div>
+      <div class="form-group row">
+        <label for="example-text-input" class="col-2 col-form-label">Train Name</label>
+        <div class="col-10">
+          <input class="form-control" type="text" placeholder="train name" id="train-name-input">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="example-search-input" class="col-2 col-form-label">Destination</label>
+        <div class="col-10">
+          <input class="form-control" type="search" placeholder="destination" id="destination-input">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="example-email-input" class="col-2 col-form-label">First Train Time (HH:mm - Millitary Time)</label>
+        <div class="col-10">
+          <input class="form-control" type="email" placeholder="HH:mm" id="first-train-time-input">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="example-url-input" class="col-2 col-form-label">Frequency (min)</label>
+        <div class="col-10">
+          <input class="form-control" type="url" placeholder="minutes" id="frequency-input">
+
+          <input type="submit" value="SUBMIT" id="submit-button">
+
+        </div>
+      </div>
+      </ul>
     </div>
-    </div>
-    <div class="form-group row">
-    <label for="example-search-input" class="col-2 col-form-label" id="destination-input">Destination</label>
-    <div class="col-10">
-      <input class="form-control" type="search" value="destination" id="example-text-input">
-    </div>
-    </div>
-    <div class="form-group row">
-    <label for="example-email-input" class="col-2 col-form-label" id="first-train-time-input">First Train Time (HH:mm - Millitary Time)</label>
-    <div class="col-10">
-      <input class="form-control" type="email" value="HH:mm" id="example-number-input">
-    </div>
-    </div>
-    <div class="form-group row">
-    <label for="example-url-input" class="col-2 col-form-label" id="frequency-input">Frequency (min)</label>
-    <div class="col-10">
-      <input class="form-control" type="url" value="minutes" id="example-number-input">
-    
-      <input type="submit" value="SUBMIT" id="submit-button">
-    
-    </div>
-    </div>
-     </ul>
-    </div>
-</div>
-       <!-- Optional JavaScript -->
-       <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-       <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
-    
-     </body>
-    </html>
+  </div>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="assets/javascript/app.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4"
+    crossorigin="anonymous"></script>
+
+</body>
+
+</html>
