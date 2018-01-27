@@ -20,6 +20,7 @@ $(document).ready(function () {
   var tRemainder;
   var nextArrival;
   var minutesAway;
+  var nextTrain;
   
 
 
@@ -38,9 +39,9 @@ $(document).ready(function () {
 
 
     var newEntry = {
-      trainName: trainName,
+      name: trainName,
       destination: destination,
-      firstTrainTime: firstTrainTime,
+      time: firstTrainTime,
       frequency: frequency,
       dataAdded: firebase.database.ServerValue.TIMESTAMP
 
@@ -49,31 +50,13 @@ $(document).ready(function () {
 
     dataRef.ref().push(newEntry);
 
-  });
+    //Logs everything to console
+    console.log(newEntry.name);
+    console.log(newEntry.destination);
+    console.log(newEntry.time);
+    console.log(newEntry.frequency);
 
-  dataRef.ref().on("child_added", function (childSnapshot) {
-
-
-    console.log(childSnapshot.val());
-
-    console.log(childSnapshot.val().trainName);
-    console.log(childSnapshot.val().destination);
-    console.log(childSnapshot.val().firstTrainTime);
-    console.log(childSnapshot.val().frequency);
-    console.log(childSnapshot.val().joinDate);
-
-
-    var trainName = childSnapshot.val().trainName;
-    var destination = childSnapshot.val().destination;
-    var firstTrain = childSnapshot.val().firstTrain;
-    var frequency = childSnapshot.val().frequency;
-
-
-    // Train Info
-    console.log(trainName);
-    console.log(destination);
-    console.log(firstTrain);
-    console.log(frequency); 
+  
 
     //Set Input to empty after user presses submit and child is added
     $("#train-name-input").val("");
@@ -81,7 +64,31 @@ $(document).ready(function () {
     $("#first-train-time-input").val("");
     $("#frequency-input").val("");
 
- 
+  });
+
+  dataRef.ref().on("child_added", function (childSnapshot) {
+
+
+    console.log(childSnapshot.val());
+
+    var trainName = childSnapshot.val().name;
+    var destination = childSnapshot.val().destination;
+    var firstTrainTime = childSnapshot.val().time;
+    var frequency = childSnapshot.val().frequency;
+
+
+    // Train Info
+    console.log(trainName);
+    console.log(destination);
+    console.log(firstTrainTime);
+    console.log(frequency);
+
+
+    // console.log(childSnapshot.val().trainName);
+    // console.log(childSnapshot.val().destination);
+    // console.log(childSnapshot.val().firstTrainTime);
+    // console.log(childSnapshot.val().frequency);
+    // console.log(childSnapshot.val().joinDate);
 
 
   
@@ -89,24 +96,34 @@ $(document).ready(function () {
     currentTime = moment();
     console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
 
-    formattedFirstTime = moment(firstTime, "hh:mm");
+    //First Time train arrives
+    formattedFirstTime = moment(firstTrainTime, "hh:mm");
     console.log(formattedFirstTime);
 
-    timeDifference = moment().diff(moment(firstTime), "minutes");
+    //Difference between current time and first train time
+    timeDifference = moment().diff(moment(formattedFirstTime), "minutes");
     console.log(timeDifference);
 
+    //Use % to obtain Modulus and Remainder 
     tRemainder = timeDifference % frequency;
     console.log(tRemainder);
 
+    //Minutes until train arrives
     minutesAway = frequency - tRemainder;
     console.log("MINUTES TILL TRAIN: " + minutesAway);
 
     nextArrival= moment().add(moment(minutesAway), "minutes");
     console.log("ARRIVAL TIME: " + moment(nextArrival).format("hh:mm"));
 
-    var newRow = "<tr><td>" + trainName + "</td><td>" + destination + "</td><td>" + frequency + "</td><td>" + nextArrival + "</td><td>" + minutesAway + "</td></tr>";
+    nextTrain = moment(nextArrival).format("hh:mm");
+
+    var newRow = "<tr><td>" + trainName + "</td><td>" + destination + "</td><td>" + frequency + "</td><td>" + nextTrain + "</td><td>" + minutesAway + "</td></tr>";
     
         $("tbody").append(newRow);
+
+
+      })
+    })
     
     // frequency - tRemainder/modulus = x
     // x = minutes away
@@ -161,5 +178,3 @@ $(document).ready(function () {
 //  $("tbody").append("<tr><td>" + trainName + "</td><td>" + destination + "</td><td>" + frequency + "</td><td>" + moment(nextTrain).format("h:mm") + "</td><td>" + tMinutesTillTrain + "</td></tr>");
 
 
-})
-})
