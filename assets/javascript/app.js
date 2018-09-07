@@ -31,13 +31,14 @@ $(document).ready(function () {
 
     event.preventDefault();
 
+    // Grabbing users' input
     var trainName = $("#train-name-input").val().trim();
     var destination = $("#destination-input").val().trim();
     var firstTrainTime = $("#first-train-time-input").val().trim();
     var frequency = $("#frequency-input").val().trim();
 
 
-
+    // Creating a new train entry
     var newEntry = {
       name: trainName,
       destination: destination,
@@ -75,6 +76,7 @@ $(document).ready(function () {
     var destination = childSnapshot.val().destination;
     var firstTrainTime = childSnapshot.val().time;
     var frequency = childSnapshot.val().frequency;
+    // console.log(childSnapshot.val().joinDate);
 
 
     // Train Info
@@ -83,16 +85,7 @@ $(document).ready(function () {
     console.log(firstTrainTime);
     console.log(frequency);
 
-
-    // console.log(childSnapshot.val().trainName);
-    // console.log(childSnapshot.val().destination);
-    // console.log(childSnapshot.val().firstTrainTime);
-    // console.log(childSnapshot.val().frequency);
-    // console.log(childSnapshot.val().joinDate);
-
-
-  
-    // //Current Time
+    //Current Time
     currentTime = moment();
     console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
 
@@ -117,6 +110,7 @@ $(document).ready(function () {
 
     nextTrain = moment(nextArrival).format("hh:mm");
 
+    // Append the new row of data to the table body
     var newRow = "<tr><td>" + trainName + "</td><td>" + destination + "</td><td>" + frequency + "</td><td>" + nextTrain + "</td><td>" + minutesAway + "</td></tr>";
     
         $("tbody").append(newRow);
